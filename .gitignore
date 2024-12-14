@@ -1,3 +1,6 @@
 myenv/
 src/db.sqlite3
-src/reviewsapp/migrations/
+src/reviewsapp/migrations/[0-9]*.py
+src/reviewsapp/__pycache__/
+src/reviewsapp/migrations/__pycache__/
+src/myproject/__pycache__/
