@@ -1,0 +1,3 @@
+myenv/
+src/db.sqlite3
+src/reviewsapp/migrations/

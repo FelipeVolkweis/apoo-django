@@ -1,0 +1,89 @@
+<!-- reviewsapp/templates/reviews/review_list.html -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Reviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Reviews</h1>
+        
+        {% if messages %}
+            <div class="mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <a href="{% url 'criar_review' %}" class="btn btn-success mb-3">Adicionar Novo Review</a>
+        
+        <form method="get" class="form-inline mb-3">
+            <label for="categoria" class="mr-2">Filtrar por Categoria:</label>
+            <select name="categoria" id="categoria" class="form-control mr-2">
+                <option value="">Todas as Categorias</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" == categoria_selecionada %}selected{% endif %}>
+                        {{ categoria.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Categoria</th>
+                    <th>Nota</th>
+                    <th>Data de Criação</th>
+                    <th>Data de Edição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.titulo }}</td>
+                        <td>
+                            {% if review.categoria %}
+                                {{ review.categoria.nome }}
+                            {% else %}
+                                Sem Categoria
+                            {% endif %}
+                        </td>
+                        <td>{{ review.nota }}</td>
+                        <td>{{ review.data_criacao|date:"d/m/Y H:i" }}</td>
+                        <td>{{ review.data_edicao|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <a href="{% url 'visualizar_review' review.id %}" class="btn btn-info btn-sm">Visualizar</a>
+                            <a href="{% url 'editar_review' review.id %}" class="btn btn-primary btn-sm">Editar</a>
+                            <form action="{% url 'remover_review' review.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja remover esta review?');">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7">Nenhum review encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
