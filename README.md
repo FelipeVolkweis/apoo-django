@@ -130,7 +130,7 @@ apoo-django/
 │   |   ├── migrations/         # Arquivos de migração do banco de dados
 │   |   ├── templates/          # Templates HTML
 │   |   │   └── reviews/        # Templates específicos da aplicação
-│   |   ├── signals/            # "Sinais" para execução de procedures no banco de dados
+│   |   ├── signals.py          # "Sinais" para execução de procedures no banco de dados
 │   |   ├── admin.py            # Configurações do Django Admin
 │   |   ├── apps.py             # Configurações da aplicação
 │   |   ├── forms.py            # Formulários para manipulação de dados
