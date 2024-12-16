@@ -123,7 +123,7 @@ http://127.0.0.1:8000/
 A seguir, uma visão geral da estrutura do projeto:
 
 ```
-myproject/
+apoo-django/
 ├── myenv/                      # Ambiente virtual Python
 ├── src/                        # Diretório principal do projeto Django
 |   ├── reviewsapp/             # Aplicação Django para gerenciamento de reviews
